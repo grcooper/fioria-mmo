@@ -5,6 +5,10 @@
 # is restricted to this project.
 use Mix.Config
 
+# General application configuration
+config :elixirmmo,
+  ecto_repos: [Elixirmmo.Repo]
+
 # Configures the endpoint
 config :elixirmmo, ElixirmmoWeb.Endpoint,
   url: [host: "localhost"],

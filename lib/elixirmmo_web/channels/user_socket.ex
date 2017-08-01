@@ -1,5 +1,9 @@
 defmodule ElixirmmoWeb.UserSocket do
+  alias Elixirmmo.Accounts.User
+  alias Elixirmmo.Accounts
   use Phoenix.Socket
+  require Logger
+  require UUID
 
   ## Channels
   channel "game", ElixirmmoWeb.GameChannel
@@ -19,8 +23,22 @@ defmodule ElixirmmoWeb.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    Logger.info "Connection token=#{inspect token}"
+    case Accounts.get_user_by_player_id(token) do
+      %User{} = user ->
+        {:ok, assign(socket, :player_id, user.player_id)}
+      _ ->
+        user = Accounts.create_user(%{player_id: UUID.uuid4(), x: 0, y: 0, name: "Jack"})
+        {:ok, assign(socket, :player_id, user.player_id)}
+    end
+  end
+
+  def connect(params, socket) do
+    Logger.info "Connection params=#{inspect params}"
+    # @FIXME: handle error on user creation
+    {:ok, user} = Accounts.create_user(%{player_id: UUID.uuid4(), x: 0, y: 0, name: "Jack"})
+    {:ok, assign(socket, :player_id, user.player_id)}
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
