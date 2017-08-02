@@ -28,13 +28,32 @@ defmodule ElixirmmoWeb.GameChannel do
     {:shutdown, :left}
   end
 
-  def handle_in("heartbeat", %{"x" => x, "y" => y}, socket) do
-    GameState.move(socket.assigns.player_id, %{x: x, y: y})
+  def handle_in("move", %{"x" => x, "y" => y}, socket) do
+    player = GameState.move(socket.assigns.player_id, %{x: x, y: y})
+    broadcast! socket, "player:position", %{player: player}
     {:noreply, socket}
   end
 
-  def handle_in("move", %{"x" => x, "y" => y}, socket) do
-    player = GameState.move(socket.assigns.player_id, %{x: x, y: y})
+  def handle_in("move", "left", socket) do
+    move_player(-3, 0, socket)
+  end
+
+  def handle_in("move", "right", socket) do
+    move_player(3, 0, socket)
+  end
+
+  def handle_in("move", "up", socket) do
+    move_player(0, -3, socket)
+  end
+
+  def handle_in("move", "down", socket) do
+    move_player(0, 3, socket)
+  end
+
+  defp move_player(x_delta, y_delta, socket) do
+    player_id = socket.assigns.player_id
+    %{x: x, y: y} = GameState.get_player(player_id)
+    player = GameState.move(socket.assigns.player_id, %{x: x + x_delta, y: y + y_delta})
     broadcast! socket, "player:position", %{player: player}
     {:noreply, socket}
   end

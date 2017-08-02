@@ -67,54 +67,25 @@ function create() {
       players[player_id].label.destroy();
       players[player_id].destroy();
     })
-
-    game.time.events.loop(Phaser.Timer.SECOND * 2, websocketHeartbeat, this);
-}
-
-
-function websocketHeartbeat() {
-    console.log("Heartbeat");
-    let pos = {
-            x: player.x,
-            y: player.y
-        };
-    channel.push("heartbeat", pos)
 }
 
 function update() {
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
         player.animations.play('left');
         player.x -= 3;
-        let pos = {
-          x: player.x,
-          y: player.y,
-        };
-        channel.push("move", pos)
+        channel.push("move", 'left')
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
         player.animations.play('right');
         player.x += 3;
-        let pos = {
-          x: player.x,
-          y: player.y,
-        };
-        channel.push("move", pos)
+        channel.push("move", "right");
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
         player.animations.play('up');
         player.y -= 3;
-        let pos = {
-          x: player.x,
-          y: player.y,
-        };
-        channel.push("move", pos)
-
+        channel.push("move", 'up')
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
         player.animations.play('down');
         player.y += 3;
-        let pos = {
-          x: player.x,
-          y: player.y,
-        };
-        channel.push("move", pos)
+        channel.push("move", 'down')
     }
 }
 
