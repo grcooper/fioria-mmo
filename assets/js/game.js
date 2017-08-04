@@ -4,6 +4,8 @@ import _ from "underscore"
 let channel;
 let game;
 let label;
+let map;
+let layer;
 
 // our player
 let player;
@@ -17,6 +19,8 @@ let style = {
 
 function preload() {
     game.load.spritesheet('char', 'images/char01.png', 32, 48);
+    game.load.tilemap('map', 'maps/test/testmap.csv', null, Phaser.Tilemap.CSV);
+    game.load.image('tiles', 'maps/test/testtiles.png');
 }
 
 function handlePlayerMessage(player) {
@@ -28,6 +32,18 @@ function handlePlayerMessage(player) {
 }
 
 function create() {
+    //  Because we're loading CSV map data we have to specify the tile size here or we can't render it
+    map = game.add.tilemap('map', 32, 32);
+
+    //  Now add in the tileset
+    map.addTilesetImage('tiles');
+    
+    //  Create our layer
+    layer = map.createLayer(0);
+
+    //  Resize the world
+    layer.resizeWorld();
+
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.stage.backgroundColor = '#2d2d2d';
 
