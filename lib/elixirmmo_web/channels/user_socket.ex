@@ -29,7 +29,7 @@ defmodule ElixirmmoWeb.UserSocket do
       %User{} = user ->
         {:ok, assign(socket, :player_id, user.player_id)}
       _ ->
-        user = Accounts.create_user(%{player_id: UUID.uuid4(), x: 0, y: 0, name: "Jack"})
+        {:ok, user} = Accounts.create_user(%{player_id: UUID.uuid4(), x: 0, y: 0, name: "Jack"})
         {:ok, assign(socket, :player_id, user.player_id)}
     end
   end
