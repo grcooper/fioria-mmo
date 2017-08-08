@@ -3,6 +3,11 @@
 /db
 /deps
 /*.ez
+/.ash_history
+/.config
+/.npm
+/.mix
+/.hex
 
 # Generated on crash by the VM
 erl_crash.dump
