@@ -1,0 +1,8 @@
+syntax = "proto3";
+
+message Player {
+  string id = 1;
+  string name = 2;
+  int32 x = 3;
+  int32 y = 4;
+}

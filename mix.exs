@@ -20,7 +20,7 @@ defmodule Elixirmmo.Mixfile do
   def application do
     [
       mod: {Elixirmmo.Application, []},
-      extra_applications:  [:logger, :runtime_tools]
+      extra_applications:  [:exprotobuf, :logger, :runtime_tools]
     ]
   end
 
@@ -42,6 +42,7 @@ defmodule Elixirmmo.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       {:uuid, "~> 1.1" },
+      {:exprotobuf, "~> 1.2.0"},
     ]
   end
 
