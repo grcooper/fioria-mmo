@@ -8,8 +8,8 @@ defmodule Elixirmmo.Accounts.User do
     field :name, :string
     field :player_id, :string
 
-    field :x, :integer
-    field :y, :integer
+    field :x, :integer, null: false
+    field :y, :integer, null: false
 
     timestamps()
   end

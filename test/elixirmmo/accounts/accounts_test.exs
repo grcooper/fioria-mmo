@@ -6,9 +6,9 @@ defmodule Elixirmmo.AccountsTest do
   describe "users" do
     alias Elixirmmo.Accounts.User
 
-    @valid_attrs %{x: 42, y: 42}
+    @valid_attrs %{x: 42, y: 42, name: "valid", player_id: "1"}
     @update_attrs %{x: 43, y: 43}
-    @invalid_attrs %{x: nil, y: nil}
+    @invalid_attrs %{x: "blah", y: "blah2"}
 
     def user_fixture(attrs \\ %{}) do
       {:ok, user} =
@@ -33,6 +33,7 @@ defmodule Elixirmmo.AccountsTest do
       assert {:ok, %User{} = user} = Accounts.create_user(@valid_attrs)
       assert user.x == 42
       assert user.y == 42
+      assert user.name == "valid"
     end
 
     test "create_user/1 with invalid data returns error changeset" do

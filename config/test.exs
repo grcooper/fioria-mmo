@@ -11,7 +11,7 @@ config :elixirmmo, Elixirmmo.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "elixirmmp_test",
+  database: "elixirmmo_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 
