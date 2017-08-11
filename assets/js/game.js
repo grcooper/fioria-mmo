@@ -1,6 +1,8 @@
 import socket from "./socket"
 import _ from "underscore"
 
+import Messages from "../../priv/messages";
+
 let channel;
 let game;
 let label;
@@ -32,12 +34,14 @@ function handlePlayerMessage(player) {
 }
 
 function create() {
+    debugger;
+    Messages.Player.Create;
     //  Because we're loading CSV map data we have to specify the tile size here or we can't render it
     map = game.add.tilemap('map', 32, 32);
 
     //  Now add in the tileset
     map.addTilesetImage('tiles');
-    
+
     //  Create our layer
     layer = map.createLayer(0);
 
