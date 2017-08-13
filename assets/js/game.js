@@ -19,16 +19,22 @@ let style = {
 
 function preload() {
     game.load.spritesheet('char', 'images/char01.png', 32, 48);
+    game.load.spritesheet('blankchar', 'images/blankchar.png', 32, 48);
     game.load.tilemap('map', 'maps/test/testmap.csv', null, Phaser.Tilemap.CSV);
     game.load.image('tiles', 'maps/test/testtiles.png');
 }
 
-function handlePlayerMessage(player) {
-    if (player.new) {
-        players[player.id] = spawn(player);
-    } else {
-        uPosition(player);
-    }
+function handlePlayerJoined(player_info) {
+    players[player_info.id] = spawn(player_info);
+}
+
+function handlePlayerPosition(player_info){
+    uPosition(player_info);
+}
+
+function handlePlayerLeft(player_id){
+    players[player_id].label.destroy();
+    players[player_id].destroy();
 }
 
 function create() {
@@ -47,7 +53,7 @@ function create() {
     game.physics.startSystem(Phaser.Physics.ARCADE);
     game.stage.backgroundColor = '#2d2d2d';
 
-    player = game.add.sprite(0, 0, 'char');
+    player = game.add.sprite(0, 0, 'blankchar');
 
     player.animations.add('down', [0, 1, 2], 10);
     player.animations.add('left', [12, 13, 14], 10);
@@ -57,11 +63,13 @@ function create() {
     game.physics.arcade.enable(player);
     player.body.collideWorldBounds = true;
 
+    game.camera.follow(player);
+
     channel = socket.channel("game");
 
     channel.join()
       .receive("ok", ({players: players, token: token, player: current_player})  => {
-        _.each(players, (player) => handlePlayerMessage(player));
+        _.each(players, (player_info) => handlePlayerJoined(player_info));
         localStorage.setItem("mmo_player_id", token);
         player.x = current_player.x;
         player.y = current_player.y;
@@ -71,64 +79,61 @@ function create() {
         console.log("Unable to join", resp)
       })
 
-    channel.on("player:joined", ({player: player}) => {
-      handlePlayerMessage(player);
+    channel.on("player:joined", ({player_info: player_info}) => {
+      handlePlayerJoined(player_info);
     })
 
-    channel.on("player:position", ({player: player}) => {
-      handlePlayerMessage(player);
+    channel.on("player:position", ({player_info: player_info}) => {
+      handlePlayerPosition(player_info);
     })
 
-    channel.on("player:left", ({player: player_id}) => {
-      players[player_id].label.destroy();
-      players[player_id].destroy();
+    channel.on("player:left", ({player_id: player_id}) => {
+      handlePlayerLeft(player_id);
+    })
+
+    channel.on("player:validate", ({player_info: player_info}) => {
+      handlePlayerValidate(player_info);
     })
 }
 
 function update() {
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-        player.animations.play('left');
-        player.x -= 3;
-        channel.push("move", 'left')
+        channel.push("move", 'left');
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-        player.animations.play('right');
-        player.x += 3;
         channel.push("move", "right");
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-        player.animations.play('up');
-        player.y -= 3;
-        channel.push("move", 'up')
+        channel.push("move", 'up');
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-        player.animations.play('down');
-        player.y += 3;
-        channel.push("move", 'down')
+        channel.push("move", 'down');
     }
 }
 
-function spawn(player) {
-    let label = player.id.match(/(^\w*)-/i)[1];
-    let p = game.add.sprite(player.x, player.y, 'char');
+function spawn(player_info) {
+    let label = player_info.id.match(/(^\w*)-/i)[1];
+    let p = game.add.sprite(player_info.x, player_info.y, 'char');
     p.animations.add('down', [0, 1, 2], 10);
     p.animations.add('left', [12, 13, 14], 10);
     p.animations.add('right', [24, 25, 26], 10);
     p.animations.add('up', [36, 37, 38], 10);
-    p.label = game.add.text(player.x, player.y - 10, label, style);
+    p.label = game.add.text(player_info.x, player_info.y - 10, label, style);
     return p;
 }
 
-function uPosition(player) {
-    if (players[player.id].x > player.x) {
-        players[player.id].animations.play('left');
-    } else if (players[player.id].x < player.x) {
-        players[player.id].animations.play('right');
-    } else if (players[player.id].y > player.y) {
-        players[player.id].animations.play('up');
+function uPosition(player_info) {
+    if (players[player_info.id].x > player_info.x) {
+        players[player_info.id].animations.play('left');
+    } else if (players[player_info.id].x < player_info.x) {
+        players[player_info.id].animations.play('right');
+    } else if (players[player_info.id].y > player_info.y) {
+        players[player_info.id].animations.play('up');
     } else {
-        players[player.id].animations.play('down');
+        players[player_info.id].animations.play('down');
     }
-    players[player.id].x = players[player.id].label.x = player.x;
-    players[player.id].y = player.y;
-    players[player.id].label.y = player.y - 10;
+    players[player_info.id].x = players[player_info.id].label.x = player_info.x;
+    player.x = player_info.x;
+    players[player_info.id].y = player_info.y;
+    player.y = player_info.y;
+    players[player_info.id].label.y = player_info.y - 10;
 }
 
 window.onload = function() {
