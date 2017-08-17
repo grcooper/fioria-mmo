@@ -6,18 +6,22 @@ defmodule ElixirmmoWeb.GameChannel do
 
   def join("game", _params, socket) do
     player_id = socket.assigns.player_id
-    players = GameState.get_players() |> Enum.map(fn {_, player} -> Map.put(player, :new, true) end)
-    user = Accounts.get_user_by_player_id(player_id)
-    player = GameState.move(player_id, %{x: user.x, y: user.y})
-    Logger.info "Client joined: player_id=#{player_id} player.id=#{player.id} player=#{inspect player} user.x=#{user.x} user.y=#{user.y} user=#{inspect user}"
-    send(self(), {:after_join, player_id})
-    {:ok, %{players: players, player: player, token: player_id}, socket}
+    if GameState.get_player(player_id) do
+      {:ok, "Player_id=#{player_id} already exists in the game"}
+    else
+      players = GameState.get_players() |> Enum.map(fn {_, player} -> Map.put(player, :new, true) end)
+      user = Accounts.get_user_by_player_id(player_id)
+      player = GameState.move(player_id, %{x: user.x, y: user.y})
+      Logger.info "Client joined: player_id=#{player_id} player.id=#{player.id} player=#{inspect player} user.x=#{user.x} user.y=#{user.y} user=#{inspect user}"
+      send(self(), {:after_join, player_id})
+      {:ok, %{players: players, player: player, token: player_id}, socket}
+    end
   end
 
   def terminate(_, socket) do
     player_id = socket.assigns.player_id
     player = GameState.get_player(player_id)
-    Logger.info "Client websocket terminated: player_id=#{player_id} player.ix=#{player.id} player=#{inspect player}"
+    Logger.info "Client websocket terminated: player_id=#{player_id} player.id=#{player.id} player=#{inspect player}"
     user = Accounts.get_user_by_player_id(player_id)
     Accounts.update_user(user, %{
       x: player[:x],
