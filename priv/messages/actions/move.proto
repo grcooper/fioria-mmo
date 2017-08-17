@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+package actions;
+
+message Move {
+  enum Direction {
+   LEFT = 0;
+   RIGHT = 1;
+   UP = 2;
+   DOWN = 3;
+ }
+ Direction direction = 1;
+}

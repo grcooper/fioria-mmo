@@ -9,9 +9,11 @@
     "phoenix": "file:../deps/phoenix",
     "phoenix-socket": "^1.2.3",
     "phoenix_html": "file:../deps/phoenix_html",
-    "underscore": "^1.8.3"
+    "underscore": "^1.8.3",
+    "protobufjs": "dcodeIO/protobuf.js#952c7d1b478cc7c6de82475a17a1387992e8651f"
   },
   "devDependencies": {
+    "protobufjs-brunch": "^1.0.2",
     "babel-brunch": "6.1.1",
     "brunch": "2.10.9",
     "clean-css-brunch": "2.10.0",
