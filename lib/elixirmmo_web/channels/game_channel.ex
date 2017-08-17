@@ -34,30 +34,6 @@ defmodule ElixirmmoWeb.GameChannel do
     {:noreply, socket}
   end
 
-  def handle_in("move", "left", socket) do
-    move_player(-3, 0, socket)
-  end
-
-  def handle_in("move", "right", socket) do
-    move_player(3, 0, socket)
-  end
-
-  def handle_in("move", "up", socket) do
-    move_player(0, -3, socket)
-  end
-
-  def handle_in("move", "down", socket) do
-    move_player(0, 3, socket)
-  end
-
-  def move_player(x_delta, y_delta, socket) do
-    player_id = socket.assigns.player_id
-    %{x: x, y: y} = GameState.get_player(player_id)
-    player = GameState.move(socket.assigns.player_id, %{x: x + x_delta, y: y + y_delta})
-    broadcast! socket, "player:position", %{player_info: player}
-    {:noreply, socket}
-  end
-
   def handle_info({:after_join, player_id}, socket) do
     player = GameState.get_player(player_id) |> Map.put(:new, true)
     broadcast! socket, "player:joined", %{player_info: player}

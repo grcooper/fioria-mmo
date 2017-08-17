@@ -54,6 +54,7 @@ function create() {
     game.stage.backgroundColor = '#2d2d2d';
 
     player = game.add.sprite(0, 0, 'blankchar');
+    player.speed = 3;
 
     player.animations.add('down', [0, 1, 2], 10);
     player.animations.add('left', [12, 13, 14], 10);
@@ -98,13 +99,25 @@ function create() {
 
 function update() {
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
-        channel.push("move", 'left');
+        if(player.x - player.speed >= 0){
+            player.x -= player.speed;
+            channel.push("move", {x: player.x, y: player.y});
+        }
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
-        channel.push("move", "right");
+        if(player.x + player.speed <= layer.width){
+            player.x += player.speed;
+            channel.push("move", {x: player.x, y: player.y});
+        }
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
-        channel.push("move", 'up');
+        if(player.y - player.speed >= 0){
+            player.y -= player.speed;
+            channel.push("move", {x: player.x, y: player.y});
+        }
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
-        channel.push("move", 'down');
+        if(player.y + player.speed <= layer.height){
+            player.y += player.speed;
+            channel.push("move", {x: player.x, y: player.y});
+        }
     }
 }
 
