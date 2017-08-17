@@ -35,9 +35,7 @@ Secondary Stats are increased through primary stats, equipment, enchantments and
 
 ## Classes/Professions
 
-There are no classes specifically in this game, but players are able to equip weapons that determine their playstyle. This is the same with tools. The player then can enhance the tools and weapons later or trade them out for other weapons. Characters will also be able to purchase training for certain weapons, but will initially be able to keep one weapon proficiency on start.
-
-##  
+There are no classes specifically in this game, but players are able to equip weapons that determine their playstyle. This is the same with tools. The player then can enhance the tools and weapons later or trade them out for other weapons. Characters will also be able to purchase training for certain weapons, but will initially be able to keep one weapon proficiency on start. 
 
 # The World
 
@@ -46,3 +44,13 @@ The world is based off of a DnD campain by Alex Bowlby. The current world map lo
 ![](hanselport.jpg)
 
 Not worrying too much about the lore and setup of the world to post here and will get mechanics working before lore is added. It does exist, it is just strewn about Alex's notes.
+
+# Credits
+
+Just pointing out some places we got assets from. 
+* Alex Bowlby - World Building ideas, general lore and map
+* [Open Game Art](https://opengameart.org)
+  * [World Tileset](https://opengameart.org/content/lpc-tile-atlas)
+  * [Character Sprites](http://gaurav.munjal.us/Universal-LPC-Spritesheet-Character-Generator/#?sex=male&body=orc)
+
+
