@@ -2,16 +2,16 @@ use Mix.Config
 
 # We don't run a server during test. If one is required,
 # you can enable the server option below.
-config :elixirmmo, ElixirmmoWeb.Endpoint,
+config :fioria, FioriaWeb.Endpoint,
   http: [port: 4001],
   server: false
 
 # Configure your database
-config :elixirmmo, Elixirmmo.Repo,
+config :fioria, Fioria.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "elixirmmo_test",
+  database: "fioria_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
 

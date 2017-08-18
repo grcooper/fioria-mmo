@@ -1,9 +1,9 @@
-defmodule Elixirmmo.Mixfile do
+defmodule Fioria.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :elixirmmo,
+      app: :fioria,
       version: "0.0.1",
       elixir: "~> 1.5",
       elixirc_paths: elixirc_paths(Mix.env),
@@ -19,7 +19,7 @@ defmodule Elixirmmo.Mixfile do
   # Type `mix help compile.app` for more information.
   def application do
     [
-      mod: {Elixirmmo.Application, []},
+      mod: {Fioria.Application, []},
       extra_applications:  [:logger, :runtime_tools]
     ]
   end

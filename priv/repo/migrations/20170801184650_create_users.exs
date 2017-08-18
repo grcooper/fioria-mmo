@@ -1,4 +1,4 @@
-defmodule Elixirmmo.Repo.Migrations.CreateUsers do
+defmodule Fioria.Repo.Migrations.CreateUsers do
   use Ecto.Migration
 
   def change do

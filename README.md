@@ -1,6 +1,10 @@
-# Elixir MMO (Needs working title)
+# Fioria 
 
-Check out docs in [docs](docs). This will have the information that you will need to get involved in the project and a lot more information about what the project is.
+ Check out docs in [docs](docs). This will have the information that you will need to get involved in the project and a lot more information about what the project is.
+
+<img src="docs/FioriaLogoBlack.png" width="200" height="200" />
+
+
 
 ## Summary
 

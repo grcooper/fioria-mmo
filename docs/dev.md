@@ -1,6 +1,6 @@
 # Development
 
-1. Clone the repo `git clone https://github.com/lego/elixir-mmo/`
+1. Clone the repo `git clone https://github.com/lego/fioria/`
 2. Install Ellixir [here](https://elixir-lang.org/install.html)
 3. Install NPM/NodeJS however you choose you can get downloads [here](https://nodejs.org/en/download/)
 4. Install Postgres from [here](http://postgresguide.com/setup/install.html) and set password to `postgres` and username to `postgres` 
