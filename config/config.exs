@@ -6,15 +6,15 @@
 use Mix.Config
 
 # General application configuration
-config :elixirmmo,
-  ecto_repos: [Elixirmmo.Repo]
+config :fioria,
+  ecto_repos: [Fioria.Repo]
 
 # Configures the endpoint
-config :elixirmmo, ElixirmmoWeb.Endpoint,
+config :fioria, FioriaWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "Pr+iyHBy06Nu4eZuZSYqViCU5EBKqwZemwrlkZO0W6tMSaaJUbOq71HePqVji7qd",
-  render_errors: [view: ElixirmmoWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Elixirmmo.PubSub,
+  render_errors: [view: FioriaWeb.ErrorView, accepts: ~w(html json)],
+  pubsub: [name: Fioria.PubSub,
            adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger

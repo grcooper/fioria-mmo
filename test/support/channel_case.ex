@@ -1,4 +1,4 @@
-defmodule ElixirmmoWeb.ChannelCase do
+defmodule FioriaWeb.ChannelCase do
   @moduledoc """
   This module defines the test case to be used by
   channel tests.
@@ -21,7 +21,7 @@ defmodule ElixirmmoWeb.ChannelCase do
       use Phoenix.ChannelTest
 
       # The default endpoint for testing
-      @endpoint ElixirmmoWeb.Endpoint
+      @endpoint FioriaWeb.Endpoint
     end
   end
 
