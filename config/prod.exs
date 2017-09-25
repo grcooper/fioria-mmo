@@ -16,7 +16,7 @@ use Mix.Config
 config :fioria, FioriaWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   load_from_system_env: true,
-  url: [scheme: "https", host: "fioria.herokuapp.com", port: System.get_env("PORT")],
+  url: [scheme: "https", host: "fioria.herokuapp.com", port: 443],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
