@@ -16,7 +16,7 @@ use Mix.Config
 config :fioria, FioriaWeb.Endpoint,
   http: [port: {:system, "PORT"}],
   load_from_system_env: true,
-  url: [scheme: "https", host: "fioria.herokuapp.com", port: 443],
+  url: [scheme: "https", host: "fioria.herokuapp.com", port: System.get_env("PORT")],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: System.get_env("SECRET_KEY_BASE")
 
@@ -27,9 +27,6 @@ config :logger, level: :info
 config :fioria, Fioria.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: System.get_env("DATABASE_URL"),
-  #password: "postgres",
-  #database: "fioria_dev",
-  #hostname: "localhost",
   pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
   ssl: true
   
@@ -73,4 +70,4 @@ config :fioria, Fioria.Repo,
 
 # Finally import the config/prod.secret.exs
 # which should be versioned separately.
-#import_config "prod.secret.exs"
+# import_config "prod.secret.exs"
