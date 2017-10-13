@@ -128,11 +128,12 @@ function spawn(player_info) {
     p.animations.add('left', [12, 13, 14], 10);
     p.animations.add('right', [24, 25, 26], 10);
     p.animations.add('up', [36, 37, 38], 10);
-    p.label = game.add.text(player_info.x, player_info.y - 10, label, style);
+    p.label = game.add.text(player_info.x - 12, player_info.y - 10, label, style);
     return p;
 }
 
 function uPosition(player_info) {
+    // Update the player's position based on the player info passed from the server
     if (players[player_info.id].x > player_info.x) {
         players[player_info.id].animations.play('left');
     } else if (players[player_info.id].x < player_info.x) {
@@ -142,8 +143,10 @@ function uPosition(player_info) {
     } else {
         players[player_info.id].animations.play('down');
     }
-    players[player_info.id].x = players[player_info.id].label.x = player_info.x;
+    // Update the player's label and position from the server
+    players[player_info.id].x = player_info.x;
     player.x = player_info.x;
+    players[player_info.id].label.x = player_info.x - 12;
     players[player_info.id].y = player_info.y;
     player.y = player_info.y;
     players[player_info.id].label.y = player_info.y - 10;
