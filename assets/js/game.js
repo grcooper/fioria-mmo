@@ -101,22 +101,22 @@ function update() {
     if (game.input.keyboard.isDown(Phaser.Keyboard.LEFT)) {
         if(player.x - player.speed >= 0){
             // player.x -= player.speed;
-            channel.push("move", {x: player.x, y: player.y});
+            channel.push("move", {x: player.x - player.speed, y: player.y});
         }
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.RIGHT)) {
         if(player.x + player.speed <= layer.width){
             // player.x += player.speed;
-            channel.push("move", {x: player.x, y: player.y});
+            channel.push("move", {x: player.x + player.speed, y: player.y});
         }
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.UP)) {
         if(player.y - player.speed >= 0){
             // player.y -= player.speed;
-            channel.push("move", {x: player.x, y: player.y});
+            channel.push("move", {x: player.x, y: player.y - player.speed});
         }
     } else if (game.input.keyboard.isDown(Phaser.Keyboard.DOWN)) {
         if(player.y + player.speed <= layer.height){
             // player.y += player.speed;
-            channel.push("move", {x: player.x, y: player.y});
+            channel.push("move", {x: player.x, y: player.y + player.speed});
         }
     }
 }
